@@ -1,51 +1,35 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
 import React from "react"
-import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
+import MainMenu from "./MainMenu"
 
-import Header from "./header"
-import "./layout.css"
+import styled, { createGlobalStyle } from "styled-components"
 
-const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
+const GlobalStyle = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+  body, html{
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+`
+const LayoutWrapper = styled.div`
+  max-width: 100vw;
+  width: 80%;
+  margin: 100px auto;
+
+  div {
+    p {
+      text-align: justify;
     }
-  `)
+  }
+`
 
-  return (
-    <>
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
-        }}
-      >
-        <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
-      </div>
-    </>
-  )
-}
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-}
+const Layout = ({ children }) => (
+  <div>
+    <GlobalStyle />
+    <MainMenu />
+    <LayoutWrapper>{children}</LayoutWrapper>
+  </div>
+)
 
 export default Layout
